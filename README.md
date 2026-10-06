@@ -20,6 +20,7 @@ As a fresh graduate with a penetration testing background, I wanted a project th
 All machines run as VirtualBox VMs on an isolated internal network (`labnet`), separate from any production or home network, with no internet access except where needed for activation/downloads.
 
 **Domain:** `lab.local`
+![Lab network diagram](screenshots/network-diagram.svg)
 
 ## What's been built so far
 
