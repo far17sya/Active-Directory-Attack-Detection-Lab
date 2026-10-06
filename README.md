@@ -21,8 +21,6 @@ All machines run as VirtualBox VMs on an isolated internal network (`labnet`), s
 
 **Domain:** `lab.local`
 
-*(Optional: add a simple network diagram here, e.g. drawn in draw.io.)*
-
 ## What's been built so far
 
 ### 1. Domain Controller setup
