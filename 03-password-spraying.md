@@ -1,6 +1,6 @@
 # Password Spraying — Attack & Detection
 
-**Attack #2 of 5** · [Back to overview](../README.md)
+**Attack #2 of 5** · [Back to overview](README.md)
 
 ## What this attack is
 
