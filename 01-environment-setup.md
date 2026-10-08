@@ -22,13 +22,13 @@ All four machines are VirtualBox VMs connected to each other through an **intern
 2. Promoted it to a Domain Controller, creating a brand new domain called `lab.local`.
 3. Gave it a fixed IP address, `10.10.10.10`, on the `labnet` network. A Domain Controller needs a fixed address so every other machine can reliably find it, and it points to itself for DNS, since it's also the one answering "what's the address for X" questions on this network.
 
-![Static IP configuration for DC01](../screenshots/02-dc01-static-ip.png)
+![Static IP configuration for DC01](screenshots/02-dc01-static-ip.png)
 
 ### Creating test user accounts
 
 I created an Organizational Unit (basically a folder inside Active Directory) called `LabUsers`, and added a few test accounts with realistic but weak passwords, these are the "employees" my attacks will target later.
 
-![LabUsers OU showing the test accounts](../screenshots/04-ad-users-and-computers.png)
+![LabUsers OU showing the test accounts](screenshots/04-ad-users-and-computers.png)
 
 ### Creating a service account for Kerberoasting
 
@@ -38,7 +38,7 @@ I also created an account called `svc_sql`, meant to represent a service (like a
 setspn -A MSSQLSvc/dc01.lab.local:1443 svc_sql
 ```
 
-![setspn registering the SPN for svc_sql](../screenshots/01-setspn-success.png)
+![setspn registering the SPN for svc_sql](screenshots/01-setspn-success.png)
 
 ### Turning on audit logging
 
@@ -50,7 +50,7 @@ By default, Windows Server barely logs anything useful. I had to explicitly turn
 
 Without these three turned on, none of the attacks later in this project would show up in the logs at all, the events simply wouldn't be recorded.
 
-![Audit Kerberos Service Ticket Operations enabled, applied with gpupdate /force](../screenshots/06-audit-kerberos-gpupdate.png)
+![Audit Kerberos Service Ticket Operations enabled, applied with gpupdate /force](screenshots/06-audit-kerberos-gpupdate.png)
 
 ## 2. Building the SIEM (SIEM01)
 
@@ -61,7 +61,7 @@ Without these three turned on, none of the attacks later in this project would s
 2. Installed Splunk Enterprise and confirmed I could log into its web interface.
 3. Turned on a **receiving port** (9997) in Splunk's settings, so it would accept logs being sent to it from other machines.
 
-![Splunk Enterprise running after install on SIEM01](../screenshots/07-splunk-installed.png)
+![Splunk Enterprise running after install on SIEM01](screenshots/07-splunk-installed.png)
 
 ### Connecting DC01 to Splunk
 
@@ -76,13 +76,13 @@ disabled = false
 disabled = false
 ```
 
-![Universal Forwarder setup on DC01, pointed at SIEM01 (10.10.10.20:9997)](../screenshots/08-forwarder-setup.png)
+![Universal Forwarder setup on DC01, pointed at SIEM01 (10.10.10.20:9997)](screenshots/08-forwarder-setup.png)
 
 ### Confirming it actually worked
 
 I searched in Splunk for anything coming from DC01, and saw real Windows events arriving with correct timestamps, proof the whole pipeline (DC01 → Forwarder → SIEM01 → Splunk search) was working end to end.
 
-![Splunk search showing forwarded Security log events from DC01](../screenshots/10-splunk-security-4769.png)
+![Splunk search showing forwarded Security log events from DC01](screenshots/10-splunk-security-4769.png)
 
 ## 3. Building the client (CLIENT01)
 
@@ -92,7 +92,7 @@ This represents a normal employee machine, the kind of computer attackers usuall
 2. Joined it to the `lab.local` domain (System Properties → Change → Domain).
 3. Logged in as one of the test domain users to confirm the join worked.
 
-![CLIENT01 static IP configuration](../screenshots/13-client01-static-ip.png)
+![CLIENT01 static IP configuration](screenshots/13-client01-static-ip.png)
 
 ## 4. Connecting Kali
 
@@ -108,7 +108,7 @@ Then confirmed it could reach DC01:
 ping 10.10.10.10
 ```
 
-![Kali successfully pinging DC01, and its network interfaces](../screenshots/14-kali-ping-and-ip.png)
+![Kali successfully pinging DC01, and its network interfaces](screenshots/14-kali-ping-and-ip.png)
 
 **Note:** this IP resets every time Kali restarts, since it wasn't saved permanently. I just re-run this command at the start of each session.
 
@@ -126,7 +126,7 @@ splunk list forward-server
 ```
 This meant DC01 knew where to send logs, but the connection wasn't actually working. I diagnosed it with `Test-NetConnection -ComputerName 10.10.10.20 -Port 9997` in PowerShell, which confirmed the port was unreachable. The real cause was Windows Firewall blocking the connection, fixed by adding an explicit allow rule for port 9997 on SIEM01.
 
-![Test-NetConnection confirming port 9997 is reachable after fixing the firewall](../screenshots/12-testnetconnection-success.png)
+![Test-NetConnection confirming port 9997 is reachable after fixing the firewall](screenshots/12-testnetconnection-success.png)
 
 **VM clocks drifted out of sync.**
 At one point Kali's clock was 3 hours ahead of DC01's. This caused real confusion when searching Splunk, I was searching for "recent" events based on Kali's clock, while Splunk was timestamping everything using DC01's (different) clock. Lesson: always check the actual event timestamps in Splunk rather than assuming "it just happened" lines up with "recent" in a search.
