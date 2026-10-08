@@ -45,7 +45,7 @@ netexec smb 10.10.10.10 -u users.txt -p 'Hazellnut@123'
 SMB  10.10.10.10  445  DC01  [+] lab.local\hazelnut:Hazellnut@123
 ```
 
-![netexec running both password spray attempts, with one success each time](../screenshots/17-netexec-password-spray.png)
+![netexec running both password spray attempts, with one success each time](screenshots/17-netexec-password-spray.png)
 
 Both results are realistic in their own way: `pcaramel`'s password was simply a common, guessable phrase, while `hazelnut`'s password (`Hazellnut@123`) contains the username itself, a very common real-world mistake, and exactly the kind of pattern password policies try to block.
 
@@ -69,7 +69,7 @@ This event fires specifically for **credential validation** (checking if a usern
 index=main host=DC01 source="WinEventLog:Security" EventCode=4776 earliest="10/08/2026:02:55:00" latest="10/08/2026:03:10:00"
 ```
 
-![Splunk search showing a cluster of 4776 events during the spray window](../screenshots/18-splunk-4776-cluster.png)
+![Splunk search showing a cluster of 4776 events during the spray window](screenshots/18-splunk-4776-cluster.png)
 
 ### Reading one event closely
 
@@ -87,7 +87,7 @@ Error Code:     0x0
 - **Authentication Package: MICROSOFT_AUTHENTICATION_PACKAGE_V1_0** means this was NTLM authentication (what SMB typically uses), not Kerberos
 - **Source Workstation** is blank here. This is a real limitation: this field doesn't always populate for NTLM credential validation, so I can't directly see Kali's IP address inside this one event. I can still tie it to the attack by matching the timestamp against my own notes of when I ran the command
 
-![Expanded 4776 event showing the successful hazelnut credential check](../screenshots/19-splunk-4776-hazelnut-success.png)
+![Expanded 4776 event showing the successful hazelnut credential check](screenshots/19-splunk-4776-hazelnut-success.png)
 
 ## What actually proves this was a "spray" and not just a normal login
 
