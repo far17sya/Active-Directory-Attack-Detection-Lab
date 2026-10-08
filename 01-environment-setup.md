@@ -136,4 +136,4 @@ My host machine only has 12 GB of RAM, and my VMs are stored on an external USB 
 
 ## What's next
 
-With all four machines built and talking to each other, the lab is ready for attacks. See the write-ups linked from the main [README](../README.md).
+With all four machines built and talking to each other, the lab is ready for attacks. See the write-ups linked from the main [README](README.md).
