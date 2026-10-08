@@ -23,9 +23,9 @@ All four run as VirtualBox VMs on one isolated internal network (`labnet`), with
 
 ## Read the write-ups in this order
 
-1. **[Environment Setup](docs/01-environment-setup.md)** — building the Domain Controller, the SIEM, the client, and connecting everything together
-2. **[Nmap Scan — Attack & Detection](docs/02-nmap-scan.md)** — basic reconnaissance, and what it does (and doesn't) leave behind in the logs
-3. **[Password Spraying — Attack & Detection](docs/03-password-spraying.md)** — guessing weak passwords across multiple accounts, and catching it in Splunk
+1. **[Environment Setup](01-environment-setup.md)** — building the Domain Controller, the SIEM, the client, and connecting everything together
+2. **[Nmap Scan — Attack & Detection](02-nmap-scan.md)** — basic reconnaissance, and what it does (and doesn't) leave behind in the logs
+3. **[Password Spraying — Attack & Detection](03-password-spraying.md)** — guessing weak passwords across multiple accounts, and catching it in Splunk
 
 More write-ups (Kerberoasting, brute force, lateral movement) are coming as I finish them.
 
