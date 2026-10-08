@@ -35,9 +35,9 @@ PORT     STATE SERVICE      VERSION
 5985/tcp open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
 ```
 
-![Nmap scan output showing DC01's open ports and services](../screenshots/15-nmap-scan-dc01.png)
+![Nmap scan output showing DC01's open ports and services](screenshots/15-nmap-scan-dc01.png)
 
-## Why this result matters
+## Why this result matter
 
 This single scan tells an attacker almost everything they need to know to plan their next move, without needing any credentials at all:
 
@@ -61,7 +61,7 @@ I searched Splunk for anything DC01 logged around the time of the scan:
 index=main host=DC01 earliest="10/08/2026:00:00:00" latest="10/08/2026:06:00:00"
 ```
 
-![Splunk search around the scan window, showing only routine System log noise](../screenshots/16-splunk-nmap-no-detection.png)
+![Splunk search around the scan window, showing only routine System log noise](screenshots/16-splunk-nmap-no-detection.png)
 
 **Result: nothing related to the scan showed up.** The only events in that window were routine background noise (Windows services starting and stopping), completely unrelated to the scan.
 
