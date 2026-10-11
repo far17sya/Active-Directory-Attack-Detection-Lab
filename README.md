@@ -24,8 +24,9 @@ All four run as VirtualBox VMs on one isolated internal network (`labnet`), with
 1. **[Environment Setup](01-environment-setup.md)** — building the Domain Controller, the SIEM, the client, and connecting everything together
 2. **[Nmap Scan — Attack & Detection](02-nmap-scan.md)** — basic reconnaissance, and what it does (and doesn't) leave behind in the logs
 3. **[Password Spraying — Attack & Detection](03-password-spraying.md)** — guessing weak passwords across multiple accounts, and catching it in Splunk
+4. **[Kerberoasting — Attack & Detection](04-kerberoasting.md)** — extracting and cracking a service account's Kerberos ticket, with a full who/what/where-from trail in a single log event
 
-More write-ups (Kerberoasting, brute force, lateral movement) are coming as I finish them.
+More write-ups (brute force, lateral movement) are coming as I finish them.
 
 ## Tools used
 
