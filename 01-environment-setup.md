@@ -1,7 +1,6 @@
 # Environment Setup
 
-This is the infrastructure behind the lab: what I built, in what order, and why each piece exists. If you just want to see an attack, skip ahead to one of the attack write-ups, this doc is the "how the lab was built" reference.
-
+This is the infrastructure behind the lab: what I built, in what order, and why each piece exists.
 ## What I built
 
 | Machine | Purpose |
