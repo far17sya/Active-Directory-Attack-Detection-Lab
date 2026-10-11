@@ -1,6 +1,6 @@
 # Kerberoasting — Attack & Detection
 
-**Attack #3 of 5** · [Back to overview](../README.md)
+**Attack #3 of 5** · [Back to overview](README.md)
 
 ## What this attack is
 
@@ -39,7 +39,7 @@ $krb5tgs$23$*svc_sql$LAB.LOCAL$lab.local/svc_sql*$ec2586ff66155689dd5afda6036cad
 
 That long string starting with `$krb5tgs$23$` is the actual ticket hash, this is what gets taken away and cracked offline, away from any live monitoring.
 
-![impacket-GetUserSPNs extracting the svc_sql ticket hash](../screenshots/20-getuserspns-extraction.png)
+![impacket-GetUserSPNs extracting the svc_sql ticket hash](screenshots/20-getuserspns-extraction.png)
 
 ### Step 2: Crack it offline
 
@@ -56,7 +56,7 @@ Password1!       (?)
 
 Cracked instantly, `svc_sql`'s password was `Password1!`, a password common enough to be near-instantly found in a leaked-password wordlist.
 
-![John the Ripper cracking the hash in under a second](../screenshots/21-john-crack-result.png)
+![John the Ripper cracking the hash in under a second](screenshots/21-john-crack-result.png)
 
 ```
 john --format=krb5tgs --show hash.txt
@@ -64,7 +64,7 @@ john --format=krb5tgs --show hash.txt
 1 password hash cracked, 0 left
 ```
 
-![Confirming the cracked password with --show](../screenshots/22-john-show-result.png)
+![Confirming the cracked password with --show](screenshots/22-john-show-result.png)
 
 ## Checking the detection side
 
@@ -74,7 +74,7 @@ index=main host=DC01 source="WinEventLog:Security" EventCode=4769 Service_Name="
 
 Two matching events appeared, from two separate ticket requests I made during testing.
 
-![Splunk search showing two EventCode 4769 entries for svc_sql](../screenshots/23-splunk-4769-list.png)
+![Splunk search showing two EventCode 4769 entries for svc_sql](screenshots/23-splunk-4769-list.png)
 
 ### Reading the full event
 
@@ -100,8 +100,8 @@ Additional Information:
     Failure Code:           0x0
 ```
 
-![Expanded 4769 event showing requester, target, and source IP](../screenshots/24-splunk-4769-full-event.png)
-![Additional ticket information, showing Failure Code 0x0](../screenshots/25-splunk-4769-additional-info.png)
+![Expanded 4769 event showing requester, target, and source IP](screenshots/24-splunk-4769-full-event.png)
+![Additional ticket information, showing Failure Code 0x0](screenshots/25-splunk-4769-additional-info.png)
 
 Breaking down why each field matters:
 
