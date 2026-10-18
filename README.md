@@ -25,8 +25,9 @@ All four run as VirtualBox VMs on one isolated internal network (`labnet`), with
 2. **[Nmap Scan — Attack & Detection](02-nmap-scan.md)** — basic reconnaissance, and what it does (and doesn't) leave behind in the logs
 3. **[Password Spraying — Attack & Detection](03-password-spraying.md)** — guessing weak passwords across multiple accounts, and catching it in Splunk
 4. **[Kerberoasting — Attack & Detection](04-kerberoasting.md)** — extracting and cracking a service account's Kerberos ticket, with a full who/what/where-from trail in a single log event
+5. 5. **[Brute Force — Attack & Detection](05-brute-force.md)** — grinding through a password list against one account, and contrasting the log pattern with password spraying
 
-More write-ups (brute force, lateral movement) are coming as I finish them.
+More write-ups (lateral movement) are coming as I finish them.
 
 ## Tools used
 
