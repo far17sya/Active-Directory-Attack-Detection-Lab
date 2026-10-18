@@ -1,6 +1,6 @@
 # Brute Force — Attack & Detection
 
-**Attack #4 of 5** · [Back to overview](../README.md)
+**Attack #4 of 5** · [Back to overview](README.md)
 
 ## What this attack is
 
@@ -33,7 +33,7 @@ Summer2026!
 Autumn2024!
 ```
 
-![Password list created with nano](../screenshots/26-brute-passwords-list.png)
+![Password list created with nano](screenshots/26-brute-passwords-list.png)
 
 ### Step 2: Run the attack
 
@@ -63,7 +63,7 @@ SMB  10.10.10.10  445  DC01  [+] lab.local\caramel:Summer2026!
 
 Eight failures in a row, then success on the ninth guess, a clean, textbook brute force result.
 
-![netexec grinding through 8 failed guesses before succeeding on Summer2026!](../screenshots/27-netexec-brute-force-result.png)
+![netexec grinding through 8 failed guesses before succeeding on Summer2026!](screenshots/27-netexec-brute-force-result.png)
 
 ## Checking the detection side
 
@@ -84,7 +84,7 @@ Error Code:     0x0
 Time: 10:27:59.578 AM
 ```
 
-![Successful 4776 event for caramel, Error Code 0x0](../screenshots/28-splunk-4776-success.png)
+![Successful 4776 event for caramel, Error Code 0x0](screenshots/28-splunk-4776-success.png)
 
 ### One of the failed attempts, right before it
 
@@ -97,7 +97,7 @@ Error Code:     0xC000006A
 Time: 10:27:59.553 AM
 ```
 
-![Failed 4776 event for caramel, Error Code 0xC000006A](../screenshots/29-splunk-4776-failure.png)
+![Failed 4776 event for caramel, Error Code 0xC000006A](screenshots/29-splunk-4776-failure.png)
 
 ## Reading these two events together
 
@@ -124,7 +124,7 @@ A real detection rule has to look for different things depending on which patter
 
 Same event ID, same log source, two different detection rules, because the thing that makes each one suspicious is the pattern across multiple events, not any single event on its own.
 
-## Problems I ran into (left in on purpose)
+## Problems I ran into 
 
 **Hydra failed against this target entirely.**
 I first tried Hydra, the "classic" brute-force tool, since it's the standard answer whenever brute force comes up:
